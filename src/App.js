@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addTodo, deleteTodo } from './action';
+import { addTodo, deleteTodo, toggleTodo } from './action';
 
 class TodoList extends Component {
   keyPressHandler = (title) => {
     this.props.deleteTodo(title);
   }
 
+  toggleTodo = title => {
+    this.props.toggleTodo(title);
+  }
+
   render() {
     return <div>
       <ul>
         {this.props.todos.map(todo =>
-          <li>
+          <li onClick={() => this.toggleTodo(todo.title)}>
             {todo.title} | {todo.done ? 'done' : 'not done'}
             <button onClick={() => this.keyPressHandler(todo.title)}>x</button>
           </li>)}
@@ -64,16 +68,20 @@ class App extends Component {
       <>
         <TodoForm addTodo={this.props.addTodo} />
         <TodoList todos={this.props.todos}
-          deleteTodo={this.props.deleteTodo} />
+          deleteTodo={this.props.deleteTodo}
+          toggleTodo={this.props.toggleTodo}
+        />
       </>
     )
   }
 }
 
+// takes the state variable and presents as props to App
 const mapStateToProps = state => {
   console.log(state);
   return { todos: state.todos };
 }
 
+// connect responsible for mapping state, actions as props
 export default connect(mapStateToProps,
-  { addTodo, deleteTodo })(App);
+  { addTodo, deleteTodo, toggleTodo })(App);

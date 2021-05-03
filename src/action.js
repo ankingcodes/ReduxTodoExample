@@ -1,9 +1,3 @@
-/* ACTIONS
-ADD_TODO
-DELETE_TODO
-MARK_TODO
-UPDATE_TODO
- */
 
 export const addTodo = todo => {
   return {
