@@ -37,6 +37,9 @@ class TodoForm extends Component {
       title: this.state.todo,
       done: this.state.done
     });
+    this.setState({
+      todo: ''
+    })
   }
 
   keyPressHandler = (e) => {
